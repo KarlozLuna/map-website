@@ -71,7 +71,17 @@
         { name: "Soccer Park 3", lat: 43.2484855, lng: -79.8628515, type: "outdoor", title: "Corktown Park" },
         { name: "Soccer Park 4", lat: 43.2589577, lng: -79.8442178, type: "outdoor", title: "Woodlands Park" }
       ];
-
+      
+      locations.forEach((loc, index) => {
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          map: map,
+          position: { lat: loc.lat, lng: loc.lng },
+          title: loc.title,
+        });
+        marker.type = loc.type;
+        markers.push(marker);
+      
+      });
       
 
       
