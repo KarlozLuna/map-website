@@ -146,63 +146,69 @@
     }
 
 
-      // Show direction between the locations to play soccer and the user location
-      function showDirections() {
-        const originIndex = document.getElementById("originSelect").value;
-        const destinationIndex = document.getElementById("destinationSelect").value;
+    // Show direction between the locations to play soccer and the user location
+    function showDirections() {
+      const originIndex = document.getElementById("originSelect").value;
+      const destinationIndex = document.getElementById("destinationSelect").value;
 
-        if (originIndex === "" || destinationIndex === "") {
-          alert("Please select both origin and destination!");
-          return;
-        }
-
-        const origin = locations[originIndex];
-        const destination = locations[destinationIndex];
-
-        const request = {
-          origin: { lat: origin.lat, lng: origin.lng },
-          destination: { lat: destination.lat, lng: destination.lng },
-          travelMode: "DRIVING",
-        };
-
-        directionsService.route(request, function (result, status) {
-          if (status === "OK") {
-            directionsRenderer.setDirections(result);
-          } else {
-            alert("Request Error");
-          }
-        });
+      if (originIndex === "" || destinationIndex === "") {
+        alert("Please select both origin and destination!");
+        return;
       }
 
-      function filterOutdoor() {
-        for (let i = 0; i < markers.length; i++) {
-          if (markers[i].type === "outdoor") {
-            markers[i].map = map;
-          } else {
-            markers[i].map = null;
-          }
-        }
-      }
+      const origin = locations[originIndex];
+      const destination = locations[destinationIndex];
 
-      function filterIndoor() {
-        for (let i = 0; i < markers.length; i++) {
-          if (markers[i].type === "indoor") {
-            markers[i].map = map;
-          } else {
-            markers[i].map = null;
-          }
-        }
-      }
+      const request = {
+        origin: { lat: origin.lat, lng: origin.lng },
+        destination: { lat: destination.lat, lng: destination.lng },
+        travelMode: "DRIVING",
+      };
 
-      function filterStadium() {
-        for (let i = 0; i < markers.length; i++) {
-          if (markers[i].type === "stadium") {
-            markers[i].map = map;
-          } else {
-            markers[i].map = null;
-          }
+      directionsService.route(request, function (result, status) {
+        if (status === "OK") {
+          directionsRenderer.setDirections(result);
+        } else {
+          alert("Request Error");
+        }
+      });
+    }
+
+    function filterOutdoor() {
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].type === "outdoor") {
+          markers[i].map = map;
+        } else {
+          markers[i].map = null;
         }
       }
+    }
+
+    function filterIndoor() {
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].type === "indoor") {
+          markers[i].map = map;
+        } else {
+          markers[i].map = null;
+        }
+      }
+    }
+
+    function filterStadium() {
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].type === "stadium") {
+          markers[i].map = map;
+        } else {
+          markers[i].map = null;
+        }
+      }
+    }
+
+    document.getElementById("get_directions").addEventListener("click", showDirections);
+    document.getElementById("add_marker").addEventListener("click", addMarkerUserLocation);
+    document.getElementById("filter_outdoor").addEventListener("click", filterOutdoor);
+    document.getElementById("filter_indoor").addEventListener("click", filterIndoor);
+    document.getElementById("filter_stadium").addEventListener("click", filterStadium);
 
   </script>
 </body>
