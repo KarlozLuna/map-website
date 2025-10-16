@@ -87,6 +87,47 @@
       
     }
 
+    // Add marker for user location with a different icon 
+    function addMarkerUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            userLocation = {
+              name: "Your Location",
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+              type: "user",
+            };
+
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+              map: map,
+              position: userLocation,
+              title: "Your Location",
+              content: (() => {
+                const img = document.createElement("img");
+                img.src = "https://icon-library.com/images/drop-pin-icon-png/drop-pin-icon-png-21.jpg";
+                img.style.width = "40px";
+                img.style.height = "40px";
+                img.style.borderRadius = "50%";
+                img.style.objectFit = "cover";
+                return img;
+              })(),
+            });
+
+            markers.push(marker);
+            locations.push(userLocation);
+
+            populateDropdowns();
+            map.setCenter(userLocation);
+            map.setZoom(13);
+          },
+          () => {
+            alert("Error adding your location!");
+          }
+        );
+      }
+    }
+
   </script>
 </body>
 </html>
