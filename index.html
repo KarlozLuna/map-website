@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Looking to play soccer</title>
   <style>
@@ -16,6 +17,7 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
 </head>
+
 <body>
   <div class="text-center my-4">
     <h1 class="text-success display-1 display-ms-5 fw-bold">Looking to Play Soccer?</h1>
@@ -37,7 +39,7 @@
       <button id="get_directions" class="btn btn-info btn-sm">Get Directions</button>
     </div>
   </div>
-  
+
 
   <script>
     let map;
@@ -48,7 +50,7 @@
     let locations = [];
 
     function initMap() {
-      
+
       const center = { lat: 43.239177, lng: -79.8860931 };
       map = new google.maps.Map(document.getElementById("map"),
         {
@@ -71,7 +73,7 @@
         { name: "Soccer Park 3", lat: 43.2484855, lng: -79.8628515, type: "outdoor", title: "Corktown Park" },
         { name: "Soccer Park 4", lat: 43.2589577, lng: -79.8442178, type: "outdoor", title: "Woodlands Park" }
       ];
-      
+
       locations.forEach((loc, index) => {
         const marker = new google.maps.marker.AdvancedMarkerElement({
           map: map,
@@ -80,11 +82,11 @@
         });
         marker.type = loc.type;
         markers.push(marker);
-      
-      });
-      
 
-      
+      });
+
+
+
     }
 
     // Add marker for user location with a different icon 
@@ -128,36 +130,81 @@
       }
     }
 
-    function filterOutdoor() {
-      for (let i = 0; i < markers.length; i++) {
-        if (markers[i].type === "outdoor") {
-          markers[i].map = map;
-        } else {
-          markers[i].map = null;
-        }
-      }
+    function populateDropdowns() {
+      const originSelect = document.getElementById("originSelect");
+      const destinationSelect = document.getElementById("destinationSelect");
+
+      originSelect.innerHTML = '<option value="">Select origin</option>';
+      destinationSelect.innerHTML = '<option value="">Select destination</option>';
+
+      locations.forEach((loc, index) => {
+        const option1 = new Option(loc.name, index);
+        const option2 = new Option(loc.name, index);
+        originSelect.add(option1);
+        destinationSelect.add(option2);
+      });
     }
 
-    function filterIndoor() {
-      for (let i = 0; i < markers.length; i++) {
-        if (markers[i].type === "indoor") {
-          markers[i].map = map;
-        } else {
-          markers[i].map = null;
-        }
-      }
-    }
 
-    function filterStadium() {
-      for (let i = 0; i < markers.length; i++) {
-        if (markers[i].type === "stadium") {
-          markers[i].map = map;
-        } else {
-          markers[i].map = null;
+      // Show direction between the locations to play soccer and the user location
+      function showDirections() {
+        const originIndex = document.getElementById("originSelect").value;
+        const destinationIndex = document.getElementById("destinationSelect").value;
+
+        if (originIndex === "" || destinationIndex === "") {
+          alert("Please select both origin and destination!");
+          return;
+        }
+
+        const origin = locations[originIndex];
+        const destination = locations[destinationIndex];
+
+        const request = {
+          origin: { lat: origin.lat, lng: origin.lng },
+          destination: { lat: destination.lat, lng: destination.lng },
+          travelMode: "DRIVING",
+        };
+
+        directionsService.route(request, function (result, status) {
+          if (status === "OK") {
+            directionsRenderer.setDirections(result);
+          } else {
+            alert("Request Error");
+          }
+        });
+      }
+
+      function filterOutdoor() {
+        for (let i = 0; i < markers.length; i++) {
+          if (markers[i].type === "outdoor") {
+            markers[i].map = map;
+          } else {
+            markers[i].map = null;
+          }
         }
       }
-    }
+
+      function filterIndoor() {
+        for (let i = 0; i < markers.length; i++) {
+          if (markers[i].type === "indoor") {
+            markers[i].map = map;
+          } else {
+            markers[i].map = null;
+          }
+        }
+      }
+
+      function filterStadium() {
+        for (let i = 0; i < markers.length; i++) {
+          if (markers[i].type === "stadium") {
+            markers[i].map = map;
+          } else {
+            markers[i].map = null;
+          }
+        }
+      }
 
   </script>
 </body>
+
 </html>
