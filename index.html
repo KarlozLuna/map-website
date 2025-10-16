@@ -17,10 +17,35 @@
 
 </head>
 <body>
+  <div class="text-center my-4">
+    <h1 class="text-success display-1 display-ms-5 fw-bold">Looking to Play Soccer?</h1>
+    <p class="text-secondary">Explore soccer fields, parks, and stadiums near you.</p>
+  </div>
+  <div id="map"></div>
+  <div class="controls container mt-3 p-3 bg-light rounded shadow-sm">
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+      <button id="filter_outdoor" class="btn btn-success btn-sm">Play soccer outdoors</button>
+      <button id="filter_indoor" class="btn btn-success btn-sm">Play soccer indoors</button>
+      <button id="filter_stadium" class="btn btn-success btn-sm">Soccer stadium</button>
+      <button id="add_marker" class="btn btn-primary btn-sm">Add your location</button>
+      <select id="originSelect" class="form-select form-select-sm w-auto">
+        <option value="">Select origin</option>
+      </select>
+      <select id="destinationSelect" class="form-select form-select-sm w-auto">
+        <option value="">Select destination</option>
+      </select>
+      <button id="get_directions" class="btn btn-info btn-sm">Get Directions</button>
+    </div>
+  </div>
   
 
   <script>
-    
+    let map;
+    let markers = [];
+    let directionsService;
+    let directionsRenderer;
+    let userLocation = null;
+    let locations = [];
 
     function initMap() {
       
