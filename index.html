@@ -1,24 +1,57 @@
+<!-- "StAuth10244: I Carlos Linares, 000929500 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else." -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Looking to play soccer</title>
-    <style>
+  <title>Looking to play soccer</title>
+  <style>
     #map {
       height: 60vh;
       width: 100%;
     }
-    </style>
-     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQbbcCVPMZIaAiXNU_-_TNHrt-O97iKs&loading=async&callback=initMap&libraries=marker"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  
+  </style>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQbbcCVPMZIaAiXNU_-_TNHrt-O97iKs&loading=async&callback=initMap&libraries=marker"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 </head>
 <body>
-    <h1>Looking to Play Soccer?</h1>
-    <p>
-    Explore soccer fields, parks, and stadiums near you — or add your own location to join local games.
-    </p>
-    <div id="map"></div>
+  
 
-    <!-- <button></button> -->
+  <script>
+    
+
+    function initMap() {
+      
+      const center = { lat: 43.239177, lng: -79.8860931 };
+      map = new google.maps.Map(document.getElementById("map"),
+        {
+          center: center,
+          zoom: 12,
+          mapId: "4cbec666ef77d72d81df906a"
+        });
+
+      directionsRenderer.setMap(map);
+
+      locations = [
+        { name: "Soccer Complex 1", lat: 43.246612, lng: -79.943835, type: "indoor", title: "Wentworth Sports Complex" },
+        { name: "Soccer Complex 2", lat: 43.207247, lng: -79.948701, type: "indoor", title: "Redeemer Sports Complex" },
+        { name: "Soccer Complex 3", lat: 43.2572472, lng: -79.8938379, type: "indoor", title: "Soccer World - Sports Complex" },
+        { name: "Soccer Complex 4", lat: 43.2427237, lng: -79.9573752, type: "indoor", title: "Ancaster Sports Centre - Sports Complex" },
+        { name: "Soccer Complex 5", lat: 43.239177, lng: -79.8860931, type: "indoor", title: "DBARC at Mohawak College" },
+        { name: "Stadium 1", lat: 43.2523634, lng: -79.8310486, type: "stadium", title: "Hamilton Stadium" },
+        { name: "Soccer Park 1", lat: 43.2403817, lng: -79.897902, type: "outdoor", title: "Hillfield Soccer Park" },
+        { name: "Soccer Park 2", lat: 43.225783, lng: -79.8485045, type: "outdoor", title: "Macassa Park" },
+        { name: "Soccer Park 3", lat: 43.2484855, lng: -79.8628515, type: "outdoor", title: "Corktown Park" },
+        { name: "Soccer Park 4", lat: 43.2589577, lng: -79.8442178, type: "outdoor", title: "Woodlands Park" }
+      ];
+
+      
+
+      
+    }
+
+  </script>
 </body>
 </html>
