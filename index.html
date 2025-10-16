@@ -50,6 +50,8 @@
     let locations = [];
 
     function initMap() {
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer();
 
       const center = { lat: 43.239177, lng: -79.8860931 };
       map = new google.maps.Map(document.getElementById("map"),
@@ -73,6 +75,8 @@
         { name: "Soccer Park 3", lat: 43.2484855, lng: -79.8628515, type: "outdoor", title: "Corktown Park" },
         { name: "Soccer Park 4", lat: 43.2589577, lng: -79.8442178, type: "outdoor", title: "Woodlands Park" }
       ];
+      const originSelect = document.getElementById("originSelect");
+      const destinationSelect = document.getElementById("destinationSelect");
 
       locations.forEach((loc, index) => {
         const marker = new google.maps.marker.AdvancedMarkerElement({
@@ -83,10 +87,23 @@
         marker.type = loc.type;
         markers.push(marker);
 
+        const option1 = new Option(loc.name, index);
+        const option2 = new Option(loc.name, index);
+        originSelect.add(option1);
+        destinationSelect.add(option2);
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<div><strong>${loc.title}</strong></div>`,
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open({
+            anchor: marker,
+            map,
+          });
+        });
       });
-
-
-
+      populateDropdowns();
     }
 
     // Add marker for user location with a different icon 
